@@ -3,22 +3,26 @@ kind: Ingress
 metadata:
   name: blackvoxel-ingress
   namespace: blackvoxel
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - host: blackvoxel.studio
       http:
         paths:
+          # Frontend — корень сайта
           - path: /
             pathType: Prefix
             backend:
               service:
                 name: frontend
                 port:
-                  number: 80
+                  number: 3000
 
-          - path: /api
-            pathType: Prefix
+          # Backend — /api/*
+          - path: /api(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: backend
