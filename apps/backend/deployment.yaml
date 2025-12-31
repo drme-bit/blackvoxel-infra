@@ -13,6 +13,8 @@ spec:
       labels:
         app: backend
     spec:
+      securityContext:
+        runAsUser: 0
       containers:
         - name: backend
           image: ghcr.io/drme-bit/backend:latest
