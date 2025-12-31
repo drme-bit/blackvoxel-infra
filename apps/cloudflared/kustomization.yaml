@@ -2,7 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment.yaml
-  - service.yaml
 
 namespace: blackvoxel
 
@@ -10,9 +9,9 @@ commonLabels:
   app: cloudflared
 
 # Notes:
-# - `service.yaml` contains a Secret manifest named `cloudflared-creds` with a placeholder.
-#   Do NOT commit real credentials in plaintext. Replace the placeholder with a SealedSecret
-#   or use ExternalSecrets / CI to inject the secret into the cluster.
+# - `service.yaml` previously contained a placeholder Secret manifest named `cloudflared-creds`.
+#   It is intentionally not included here because `cloudflared-creds` is managed by a SealedSecret
+#   (see `apps/common/cloudflared-sealedsecret.yaml`).
 # - The deployment mounts the secret at /etc/cloudflared; ensure the secret contains
 #   the Cloudflared credentials file under the key `credentials.json`.
 # Example to create the secret locally (not for git):
