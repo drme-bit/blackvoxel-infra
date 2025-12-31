@@ -4,8 +4,8 @@ credentials-file: /etc/cloudflared/credentials.json
 ingress:
   - hostname: blackvoxel.studio
     path: /api/*
-    service: http://localhost:8080
+    service: http://backend.blackvoxel.svc.cluster.local:8080
   - hostname: blackvoxel.studio
-    service: http://localhost:3000
+    service: http://frontend.blackvoxel.svc.cluster.local:3000
 
   - service: http_status:404
