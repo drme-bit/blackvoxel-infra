@@ -1,5 +1,5 @@
 tunnel: blackvoxel
-credentials-file: cloudflared-creds
+credentials-file: /etc/cloudflared/credentials.json
 
 ingress:
   - hostname: blackvoxel.studio
