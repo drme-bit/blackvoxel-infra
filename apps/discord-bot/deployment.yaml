@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: bot
-          image: ghcr.io/blackvoxel/discord-bot:latest
+          image: ghcr.io/drme-bit/discord-bot:latest
           env:
             - name: DISCORD_TOKEN
               valueFrom:

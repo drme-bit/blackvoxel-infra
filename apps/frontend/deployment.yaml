@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/blackvoxel/frontend:latest
+          image: ghcr.io/drme-bit/frontend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
