@@ -26,5 +26,5 @@ spec:
               readOnly: true
       volumes:
         - name: config
-          secret:
-            secretName: cloudflared-config
+          configMap:
+            name: cloudflared-config
