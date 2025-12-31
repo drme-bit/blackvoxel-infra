@@ -18,8 +18,9 @@ spec:
           image: cloudflare/cloudflared:latest
           args:
             - tunnel
+            - --config
+            - /etc/cloudflared/config.yml
             - run
-            - blackvoxel
           volumeMounts:
             - name: config
               mountPath: /etc/cloudflared/config.yml
@@ -37,4 +38,4 @@ spec:
 
         - name: creds
           secret:
-            secretName: credentials.json
+            secretName: cloudflared-creds
