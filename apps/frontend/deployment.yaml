@@ -13,8 +13,6 @@ spec:
       labels:
         app: frontend
     spec:
-      nodeSelector:
-        kubernetes.io/arch: amd64
       containers:
         - name: frontend
           image: ghcr.io/drme-bit/frontend:latest
