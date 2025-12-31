@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
+  namespace: blackvoxel # добавь, если не указан в другом месте
 spec:
   replicas: 3
   selector:
@@ -14,9 +15,42 @@ spec:
     spec:
       containers:
         - name: backend
-          envFrom:
-            - secretRef:
-                name: backend-env
           image: ghcr.io/drme-bit/backend:latest
           ports:
             - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: backend-env
+
+          # ────────────────────────────────────────────────────────────────
+          # Проверки готовности и живучести — именно здесь
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 10 # было 5 — лучше дать чуть больше времени на запуск + retry-цикл
+            periodSeconds: 10
+            timeoutSeconds: 3 # 2 секунды иногда мало — 3 надёжнее
+            successThreshold: 1
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 45 # 30–60 секунд — чтобы не убивать под во время инициализации redis/postgres
+            periodSeconds: 30
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+
+          # Опционально: если хочешь лимиты ресурсов (очень рекомендуется)
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
