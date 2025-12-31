@@ -2,7 +2,6 @@ resources:
   - ../../apps/backend
   - ../../apps/frontend
   - ../../apps/discord-bot
-  - ../../apps/ingress
   - ../../apps/cloudflared
   - ../../apps/common
   - ../../apps/redis
