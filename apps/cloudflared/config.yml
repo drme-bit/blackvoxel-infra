@@ -1,11 +1,11 @@
 tunnel: blackvoxel
 credentials-file: /etc/cloudflared/credentials.json
-
+warp-routing:
+  enabled: true
 ingress:
   - hostname: blackvoxel.studio
-    path: /api/*
+    path: ^/api(/.*)?$
     service: http://backend.blackvoxel.svc.cluster.local:8080
   - hostname: blackvoxel.studio
     service: http://frontend.blackvoxel.svc.cluster.local:3000
-
   - service: http_status:404
