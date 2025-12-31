@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: backend
@@ -14,13 +14,9 @@ spec:
     spec:
       containers:
         - name: backend
-          image: ghcr.io/drme-bit/backend:latest
-          command: ["sleep", "3600"]
-          ports:
-            - containerPort: 8080
           envFrom:
             - secretRef:
                 name: backend-env
-          env:
-            - name: RUST_LOG
-              value: info
+          image: ghcr.io/drme-bit/backend:latest
+          ports:
+            - containerPort: 8080
