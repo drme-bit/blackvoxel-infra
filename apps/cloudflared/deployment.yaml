@@ -20,8 +20,6 @@ spec:
             - tunnel
             - run
             - blackvoxel
-            - --config
-            - /etc/cloudflared/config.yml
           volumeMounts:
             - name: config
               mountPath: /etc/cloudflared
