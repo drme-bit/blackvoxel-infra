@@ -27,4 +27,4 @@ spec:
       volumes:
         - name: config
           secret:
-            secretName: cloudflared-creds
+            secretName: cloudflared-config
