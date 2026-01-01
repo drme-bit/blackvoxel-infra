@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: envs/staging
   destination:
-    server: STAGING_SERVER
+    server: https://kubernetes.default.svc
     namespace: blackvoxel-staging
   syncPolicy:
     automated:

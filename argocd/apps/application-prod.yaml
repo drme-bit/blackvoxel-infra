@@ -10,7 +10,7 @@ spec:
     targetRevision: main
     path: envs/prod
   destination:
-    server: PROD_SERVER
+    server: https://kubernetes.default.svc
     namespace: blackvoxel
   syncPolicy:
     automated:
