@@ -15,9 +15,6 @@ spec:
       containers:
         - name: bot
           image: ghcr.io/drme-bit/discord-bot
-          env:
-            - name: DISCORD_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: discord-secrets
-                  key: token
+          envFrom:
+            - secretRef:
+                name: discord-env
