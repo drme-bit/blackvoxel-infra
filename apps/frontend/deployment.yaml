@@ -23,11 +23,13 @@ spec:
           env:
             - name: RUST_LOG
               value: info
-          # Optionally load runtime config from a Secret named `frontend-env`.
-          # Create it with: kubectl -n blackvoxel create secret generic frontend-env --from-env-file=/path/to/.env
+          # Load frontend runtime config from a dedicated Secret.
+          # This must contain ONLY frontend-related keys (do not reuse backend-env).
+          # Example:
+          # kubectl -n blackvoxel create secret generic frontend-env --from-env-file=/path/to/frontend.env
           envFrom:
             - secretRef:
-                name: backend-env #temp
+                name: frontend-env
           resources:
             requests:
               cpu: "100m"

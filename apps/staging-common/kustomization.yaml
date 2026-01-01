@@ -11,3 +11,4 @@ namespace: blackvoxel-staging
 
 resources:
   - backend-env.yaml
+  - frontend-env.yaml
