@@ -6,6 +6,9 @@ resources:
   # so it will consume `discord-env` from staging-sealed secrets.
   - ../../apps/discord-bot
 
+  # Staging ingress (single entrypoint for frontend + /api -> backend)
+  - ../../apps/ingress
+
   # NOTE: do NOT include ../../apps/common here — it contains prod SealedSecrets in namespace `blackvoxel`.
   #
   # Instead, include staging-only sealed secrets (e.g. Discord) from a staging-specific folder.
