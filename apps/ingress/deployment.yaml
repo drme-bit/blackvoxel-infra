@@ -1,15 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: blackvoxel-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: blackvoxel-frontend
 spec:
   ingressClassName: nginx
   rules:
+    # No `host` so it works on localhost via port-forward without Host header.
     - http:
         paths:
-          # Frontend — корень сайта
+          # Frontend: serve everything as-is (NO rewrite),
+          # otherwise static assets (.css/.js/.wasm) will get rewritten and break SRI.
           - path: /
             pathType: Prefix
             backend:
@@ -17,8 +17,22 @@ spec:
                 name: frontend
                 port:
                   number: 80
-
-          # Backend — /api/*
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: blackvoxel-backend
+  annotations:
+    # Use regex capture groups so /api(/|$)(.*) can be rewritten to /$2 on the backend.
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    # No `host` so it works on localhost via port-forward without Host header.
+    - http:
+        paths:
+          # Backend: match /api and strip the /api prefix before proxying.
           - path: /api(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
