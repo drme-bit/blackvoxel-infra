@@ -9,7 +9,7 @@ commonLabels:
   app: discord-bot
 
 images:
-  - name: ghcr.io/drme-bit/bot
+  - name: ghcr.io/drme-bit/discord-bot
     newTag: latest
 
 generatorOptions:
