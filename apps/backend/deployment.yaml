@@ -18,6 +18,7 @@ spec:
       containers:
         - name: backend
           image: ghcr.io/drme-bit/backend
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
