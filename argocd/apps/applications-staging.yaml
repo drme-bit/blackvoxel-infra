@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/drme-bit/blackvoxel-infra
-    targetRevision: main
+    targetRevision: staging
     path: envs/staging
   destination:
     server: https://kubernetes.default.svc

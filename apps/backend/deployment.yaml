@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend
-  namespace: blackvoxel # добавь, если не указан в другом месте
+  namespace: blackvoxel
 spec:
   replicas: 3
   selector:
@@ -25,7 +25,6 @@ spec:
             - secretRef:
                 name: backend-env
 
-          # Опционально: если хочешь лимиты ресурсов (очень рекомендуется)
           resources:
             requests:
               cpu: "100m"
