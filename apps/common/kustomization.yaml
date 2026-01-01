@@ -4,6 +4,7 @@ resources:
   - ghcr-sealedsecret.yaml
   - backend-sealedsecret.yaml
   - cloudflared-sealedsecret.yaml
+  - docker-sealedsecret.yaml
 namespace: blackvoxel
 commonLabels:
   app: common
