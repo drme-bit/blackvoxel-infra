@@ -27,7 +27,7 @@ spec:
           # Create it with: kubectl -n blackvoxel create secret generic frontend-env --from-env-file=/path/to/.env
           envFrom:
             - secretRef:
-                name: frontend-env
+                name: backend-env #temp
           resources:
             requests:
               cpu: "100m"
