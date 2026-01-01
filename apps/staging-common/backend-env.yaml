@@ -18,6 +18,8 @@ stringData:
   # If your Rust app uses a different env var name, adjust accordingly.
   DATABASE_URL: postgres://blackvoxel:blackvoxel@postgres-staging:5432/blackvoxel?sslmode=disable
   JWT_SECRET: "UnBCvetntmdrPs+eGjYKeBrpw+6W/CvafvIWIxUNvhE="
+  DISCORD_CLIENT_ID: "1380572212636942427"
+  DISCORD_CLIENT_SECRET: "yqeA79dCSwYtmgIksLfYdbmsmfP3V3w1"
 
   # --- Redis (staging) ---
   # If you deploy redis in staging with a different service name/port, adjust accordingly.
