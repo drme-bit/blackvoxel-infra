@@ -3,9 +3,6 @@ resources:
   - ../../apps/frontend
   - ../../apps/discord-bot
 
-  # Prod ingress (single entrypoint for frontend + /api -> backend)
-  - ../../apps/ingress
-
   - ../../apps/cloudflared
   - ../../apps/common
   - ../../apps/redis
