@@ -3,7 +3,12 @@ kind: Kustomization
 resources:
   - deployment.yaml
 
-namespace: blackvoxel
+# This is a base; do not pin a namespace here.
+# Environment overlays (e.g. `envs/staging`, `envs/prod`) should set namespaces
+# to avoid accidentally deploying staging/prod into the wrong namespace.
+#
+# NOTE: If you need per-environment differences (namespaces, secrets, image tags),
+# do them in the env overlay with `namespace:` and `patches`.
 
 commonLabels:
   app: discord-bot
@@ -17,6 +22,5 @@ generatorOptions:
 
 # Note:
 # - The bot does not need a Service (it doesn't expose network ports).
-# - Secrets (discord token) must be created separately in the `blackvoxel` namespace.
-#   e.g. `kubectl -n blackvoxel create secret generic discord-secrets --from-literal=token=$DISCORD_TOKEN`
+# - Secrets must exist in the target namespace (staging/prod) under the name `discord-env`.
 # - For GitOps, prefer SealedSecrets or ExternalSecrets instead of committing plaintext secrets.
