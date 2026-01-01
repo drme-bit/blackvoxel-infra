@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Staging-only common resources (plain Secrets etc.).
+# This app is included only from envs/staging.
+#
+# IMPORTANT:
+# Do NOT create a plain `discord-env` Secret here, because staging uses a SealedSecret-managed
+# `discord-env` (apps/staging-sealed). Creating both will conflict.
+namespace: blackvoxel-staging
+
+resources:
+  - backend-env.yaml

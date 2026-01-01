@@ -2,6 +2,28 @@ resources:
   - ../../apps/backend
   - ../../apps/frontend
   - ../../apps/discord-bot
-  - ../../apps/cloudflared
-  - ../../apps/common
+  # NOTE: do NOT include ../../apps/common here — it contains prod SealedSecrets in namespace `blackvoxel`.
+  #
+  # Instead, include staging-only sealed secrets (e.g. Discord) from a staging-specific folder.
+  # Create `apps/staging-sealed/discord-sealedsecret.yaml` with namespace `blackvoxel-staging`.
+  - ../../apps/staging-sealed
+  - ../../apps/staging-common
   - ../../apps/redis
+  - ../../apps/postgres-staging
+
+# NOTE:
+# We previously had an extra staging overlay patch file for backend envFrom, but it's not needed.
+# The inline JSON patch below is the single source of truth for staging-only envFrom additions.
+
+patches:
+  # Staging-only: backend needs Discord OAuth + bot token config from `discord-env`
+  # in addition to core `backend-env`.
+  - target:
+      kind: Deployment
+      name: backend
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/envFrom/-
+        value:
+          secretRef:
+            name: discord-env

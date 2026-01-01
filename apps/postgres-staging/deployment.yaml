@@ -1,0 +1,74 @@
+# Ephemeral Postgres for staging (no persistence).
+# Namespace is intentionally NOT set here; the environment overlay sets it.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-staging
+  labels:
+    app: postgres-staging
+    component: database
+    env: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-staging
+  template:
+    metadata:
+      labels:
+        app: postgres-staging
+        component: database
+        env: staging
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: postgres
+              containerPort: 5432
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: postgres-staging-secret
+
+          # Ephemeral storage (data is lost if the pod is rescheduled).
+          # For persistence, replace with a StatefulSet + PVC.
+          volumeMounts:
+            - name: pgdata
+              mountPath: /var/lib/postgresql/data
+
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -lc
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB" -h 127.0.0.1
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 12
+
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -lc
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB" -h 127.0.0.1
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+      volumes:
+        - name: pgdata
+          emptyDir: {}

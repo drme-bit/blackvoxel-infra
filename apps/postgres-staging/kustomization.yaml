@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Ephemeral Postgres intended for the staging environment.
+# Data is NOT persisted (use emptyDir in the Deployment/StatefulSet).
+namespace: blackvoxel-staging
+
+commonLabels:
+  app: postgres-staging
+  component: database
+  env: staging
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - secret.yaml

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-env
+  namespace: blackvoxel-staging
+type: Opaque
+stringData:
+  # --- Core runtime ---
+  RUST_LOG: info
+  BIND_ADDR: 0.0.0.0:8080
+
+  # --- Staging DB (ephemeral Postgres in-cluster) ---
+  # Service name from apps/postgres-staging is `postgres-staging` in namespace `blackvoxel-staging`.
+  # If your Rust app uses a different env var name, adjust accordingly.
+  DATABASE_URL: postgres://blackvoxel:blackvoxel@postgres-staging:5432/blackvoxel?sslmode=disable
+
+  # --- Redis (staging) ---
+  # If you deploy redis in staging with a different service name/port, adjust accordingly.
+  # If backend treats REDIS_URL as required and you don't use redis on staging, remove this and
+  # update backend to make it optional.
+  REDIS_URL: redis://redis:6379
+
+  # --- Public URL ---
+  # Set to whatever you use to access staging (port-forward, local ingress hostname, etc.)
+  PUBLIC_BASE_URL: http://localhost:8080
