@@ -18,7 +18,7 @@ spec:
           image: ghcr.io/drme-bit/frontend
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 3000
+            - containerPort: 80
               name: http
           env:
             - name: RUST_LOG

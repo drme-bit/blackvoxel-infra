@@ -4,7 +4,7 @@ warp-routing:
   enabled: true
 ingress:
   - hostname: blackvoxel.studio
-    service: http://frontend.blackvoxel.svc.cluster.local:3000 # ВСЁ на frontend
+    service: http://frontend.blackvoxel.svc.cluster.local:80 # ВСЁ на frontend
 
   - hostname: api.blackvoxel.studio
     service: http://backend.blackvoxel.svc.cluster.local:8080 # ВСЁ на backend
