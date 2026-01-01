@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/drme-bit/frontend:latest
+          image: ghcr.io/drme-bit/frontend
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 80
+            - containerPort: 3000
               name: http
           env:
             - name: RUST_LOG
@@ -28,22 +28,6 @@ spec:
           envFrom:
             - secretRef:
                 name: frontend-env
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 3
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            initialDelaySeconds: 15
-            periodSeconds: 20
-            timeoutSeconds: 2
-            failureThreshold: 3
           resources:
             requests:
               cpu: "100m"

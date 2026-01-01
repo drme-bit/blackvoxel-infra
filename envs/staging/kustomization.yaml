@@ -1,0 +1,7 @@
+resources:
+  - ../../apps/backend
+  - ../../apps/frontend
+  - ../../apps/discord-bot
+  - ../../apps/cloudflared
+  - ../../apps/common
+  - ../../apps/redis

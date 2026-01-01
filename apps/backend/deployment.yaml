@@ -17,7 +17,7 @@ spec:
         runAsUser: 0
       containers:
         - name: backend
-          image: ghcr.io/drme-bit/backend:latest
+          image: ghcr.io/drme-bit/backend
           ports:
             - containerPort: 8080
           envFrom:

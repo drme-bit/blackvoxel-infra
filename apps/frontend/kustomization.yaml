@@ -6,3 +6,8 @@ resources:
 namespace: blackvoxel
 commonLabels:
   app: frontend
+
+images:
+  - name: ghcr.io/drme-bit/frontend
+    newName: ghcr.io/drme-bit/frontend
+    newTag: latest

@@ -8,6 +8,10 @@ namespace: blackvoxel
 commonLabels:
   app: discord-bot
 
+images:
+  - name: ghcr.io/drme-bit/discord-bot
+    newTag: latest
+
 generatorOptions:
   disableNameSuffixHash: true
 
