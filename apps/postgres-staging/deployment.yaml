@@ -37,7 +37,7 @@ spec:
           # For persistence, replace with a StatefulSet + PVC.
           volumeMounts:
             - name: pgdata
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql
 
           readinessProbe:
             exec:
