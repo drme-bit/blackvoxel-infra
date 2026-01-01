@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:14-trixie
+          image: postgres:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: postgres
