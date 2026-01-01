@@ -2,12 +2,14 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - deployment.yaml
-namespace: blackvoxel
+
+# This is a base; do not pin a namespace here.
+# Environment overlays (e.g. `envs/staging`, `envs/prod`) should set namespaces
+# to avoid accidentally deploying staging/prod into the wrong namespace.
 commonLabels:
   app: ingress
 
 # Notes:
 # - The file `deployment.yaml` in this directory contains the Ingress resource.
-# - Ensure the namespace `blackvoxel` exists (ArgoCD can create it or create it separately).
 # - If you manage TLS/hosts via cloudflared or cert-manager, consider adding patches or additional
 #   resources (Certificates, Issuers) into this kustomization.

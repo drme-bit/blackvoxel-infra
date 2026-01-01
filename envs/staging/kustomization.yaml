@@ -1,15 +1,24 @@
 resources:
   - ../../apps/backend
   - ../../apps/frontend
+
+  # Staging: deploy bot into `blackvoxel-staging` (staging overlay namespace),
+  # so it will consume `discord-env` from staging-sealed secrets.
   - ../../apps/discord-bot
+
+  # Staging ingress (single entrypoint for frontend + /api -> backend)
+  - ../../apps/ingress
+
   # NOTE: do NOT include ../../apps/common here — it contains prod SealedSecrets in namespace `blackvoxel`.
   #
   # Instead, include staging-only sealed secrets (e.g. Discord) from a staging-specific folder.
-  # Create `apps/staging-sealed/discord-sealedsecret.yaml` with namespace `blackvoxel-staging`.
   - ../../apps/staging-sealed
   - ../../apps/staging-common
   - ../../apps/redis
   - ../../apps/postgres-staging
+
+# Ensure everything in this overlay is deployed to the staging namespace.
+namespace: blackvoxel-staging
 
 # NOTE:
 # We previously had an extra staging overlay patch file for backend envFrom, but it's not needed.
