@@ -17,7 +17,7 @@ spec:
         runAsUser: 0
       containers:
         - name: backend
-          image: ghcr.io/drme-bit/backend
+          image: ghcr.io/drme-bit/backend:sha-2e3779244d74bfcbab421f8d900f22f1e741567a
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
